@@ -14,6 +14,8 @@ class ChatroomViewController: UIViewController, UITextFieldDelegate, UITextViewD
     }
     @IBOutlet weak var outputArea: UITextView!
     @IBOutlet weak var inputArea: UITextField!
+    @IBOutlet weak var textUIView: UIView!
+    
     
     override func viewDidLoad() {
         inputArea.delegate = self
@@ -21,7 +23,10 @@ class ChatroomViewController: UIViewController, UITextFieldDelegate, UITextViewD
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.outputArea.layoutManager.allowsNonContiguousLayout = false
+    
     }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -39,11 +44,18 @@ class ChatroomViewController: UIViewController, UITextFieldDelegate, UITextViewD
                 inputArea.text = ""
                 outputArea.text.append(text)
                 outputArea.text.append("\n")
+                outputArea.scrollRangeToVisible(NSMakeRange(outputArea.text!.count - 1, 1))
                 print(text)
             }
         }
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if (textField == inputArea) {
+        }
+    }
+    
     
     /*
      // MARK: - Navigation
